@@ -1,5 +1,5 @@
 from django import forms
-from core.models import Book, Branch, Inventory
+from core.models import Book, Branch
 
 
 class BookForm(forms.ModelForm):

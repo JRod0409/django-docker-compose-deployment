@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from core.models import Book, Branch, Inventory
+from core.models import Branch, Inventory
 from core.forms import BookForm
 
 
