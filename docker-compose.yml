@@ -14,9 +14,9 @@ services:
     build:
       context: .
     command: >
-      sh -c "until nc -z db 5432; do echo 'Waiting for Postgres...'; sleep 1; done &&
-             python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py wait_for_db &&
+         python manage.py migrate &&
+         python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
     volumes:
