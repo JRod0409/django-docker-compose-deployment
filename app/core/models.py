@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Book(models.Model):
     author = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
@@ -9,6 +10,7 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class Branch(models.Model):
     branch_name = models.CharField(max_length=255)
@@ -21,6 +23,7 @@ class Branch(models.Model):
     def __str__(self):
         return self.branch_name
 
+
 class Inventory(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='inventories')
     branch = models.ForeignKey(Branch, on_delete=models.CASCADE, related_name='inventories')
@@ -31,3 +34,4 @@ class Inventory(models.Model):
 
     def __str__(self):
         return f"{self.book.title} at {self.branch.branch_name} ({self.quantity})"
+    
