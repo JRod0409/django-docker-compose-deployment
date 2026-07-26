@@ -1,8 +1,21 @@
 from django import forms
-from core.models import Book
+from core.models import Book, Branch, Inventory
 
 
 class BookForm(forms.ModelForm):
+    # Extra fields not on the Book model directly, but used to create the Inventory record
+    branch = forms.ModelChoiceField(
+        queryset=Branch.objects.all(),
+        required=False,
+        empty_label="-- Select Branch (Optional) --"
+    )
+    quantity = forms.IntegerField(
+        min_value=1,
+        initial=1,
+        required=False,
+        label="Quantity at Branch"
+    )
+
     class Meta:
         model = Book
-        fields = '__all__'  # Form will include all fields defined on your Book model
+        fields = ['title', 'author', 'description', 'thumbnail_url', 'price']

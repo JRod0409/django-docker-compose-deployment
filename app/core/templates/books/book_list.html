@@ -5,27 +5,59 @@
     <title>Henry Books - Inventory</title>
 </head>
 <body>
-    <h1>Henry Books Inventory</h1>
+    <h1>Henry Books Inventory Browser</h1>
+
     <p><a href="{% url 'book-create' %}">+ Add New Book</a></p>
 
+    <!-- Branch Filter Form -->
+    <form method="get" action="{% url 'book-list' %}">
+        <label for="branch-select"><strong>Filter by Branch:</strong></label>
+        <select name="branch" id="branch-select" onchange="this.form.submit()">
+            <option value="">All Branches</option>
+            {% for branch in branches %}
+                <option value="{{ branch.id }}" {% if branch.id == selected_branch_id %}selected{% endif %}>
+                    {{ branch.branch_name }} ({{ branch.city }}, {{ branch.state }})
+                </option>
+            {% endfor %}
+        </select>
+        {% if selected_branch_id %}
+            <a href="{% url 'book-list' %}">Clear Filter</a>
+        {% endif %}
+    </form>
+
+    <br>
+
+    <!-- Inventory Table -->
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
             <tr>
+                <th>Thumbnail</th>
                 <th>Title</th>
                 <th>Author</th>
                 <th>Price</th>
+                <th>Branch Location</th>
+                <th>Stock Quantity</th>
             </tr>
         </thead>
         <tbody>
-            {% for book in books %}
+            {% for item in inventories %}
             <tr>
-                <td>{{ book.title }}</td>
-                <td>{{ book.author }}</td>
-                <td>${{ book.price }}</td>
+                <td>
+                    {% if item.book.thumbnail_url %}
+                        <img src="{{ item.book.thumbnail_url }}" alt="{{ item.book.title }}" width="50">
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td><strong>{{ item.book.title }}</strong><br><small>{{ item.book.description }}</small></td>
+                <td>{{ item.book.author }}</td>
+                <td>${{ item.book.price }}</td>
+                <td>{{ item.branch.branch_name }} ({{ item.branch.city }})</td>
+                <td>{{ item.quantity }}</td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="3">No books found in inventory.</td>
+                <td colspan="6">No inventory records found for this view.</td>
             </tr>
             {% endfor %}
         </tbody>
