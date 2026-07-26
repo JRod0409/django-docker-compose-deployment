@@ -16,3 +16,7 @@ WORKDIR /app
 
 RUN adduser --disabled-password --no-create-home appuser
 USER appuser
+
+EXPOSE 8000
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
