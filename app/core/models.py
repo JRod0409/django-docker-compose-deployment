@@ -34,4 +34,3 @@ class Inventory(models.Model):
 
     def __str__(self):
         return f"{self.book.title} at {self.branch.branch_name} ({self.quantity})"
-    
