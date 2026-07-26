@@ -27,7 +27,7 @@ services:
       - DB_USER=henry_admin
       - DB_PASS=henry_secure_pass
       - SECRET_KEY=django-insecure-dev-key-change-in-production
-      - DJANGO_SETTINGS_MODULE=app.settings
+      - DJANGO_SETTINGS_MODULE=settings
       - PYTHONPATH=/app
     depends_on:
       - db
