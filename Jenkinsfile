@@ -15,14 +15,12 @@ pipeline {
 
         stage('Lint & Static Checks') {
             steps {
-                // Runs flake8 linting inside the container
-                sh 'docker compose run --rm app sh -c "flake8"'
+                sh 'docker compose run --rm --build app sh -c "flake8"'
             }
         }
 
         stage('Run Unit Tests') {
             steps {
-                // Runs Django unit tests
                 sh 'docker compose run --rm app sh -c "python manage.py test"'
             }
         }
