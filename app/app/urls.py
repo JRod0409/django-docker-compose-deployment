@@ -17,8 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
+from core import views
 
 urlpatterns = [
+    # ... your existing admin path ...
+    path('books/', views.book_list, name='book-list'),
+    path('books/add/', views.book_create, name='book-create'),
     path('admin/', admin.site.urls),
 ]
 
